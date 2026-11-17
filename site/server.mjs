@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(here, '..');
-const port = Number(process.env.PORT || 8767);
+const port = Number(process.env.PORT || 8767); const host = process.env.HOST || '127.0.0.1';
 const model = process.env.OPENAI_MODEL || 'gpt-6-luna';
 const cache = new Map();
 const CACHE_MS = { weather:60_000, river:15*60_000, cyber:5*60_000, esb:60_000, water:60_000 };
@@ -324,7 +324,7 @@ const server=http.createServer(async(request,response)=>{
 export { fallbackAnswer, parseAtom, server };
 
 if (process.env.READY72_TEST_NO_LISTEN !== '1') {
-  server.listen(port,'127.0.0.1',()=>{
+  server.listen(port,host,()=>{
     process.stdout.write(`READY72 preview: http://127.0.0.1:${port}\n`);
     process.stdout.write(`AI mode: ${process.env.OPENAI_API_KEY?'configured (key value hidden)':'local grounded preview; set OPENAI_API_KEY for model answers'}\n`);
   });
