@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ready72-preview
+    runtime: node
+    plan: free
+    branch: preview
+    buildCommand: echo "No build step required"
+    startCommand: npm --prefix site start
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: OPENAI_API_KEY
+        sync: false
