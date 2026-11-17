@@ -1,0 +1,10 @@
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+const tool='C:/Program Files/WindowsApps/OpenAI.CodexPrimaryRuntime.v26-1111-570-0_26.1111.570.0_x64__3k8sg7r9htsxt/dependencies/node/node_modules/@oai/artifact-tool/dist/artifact_tool.mjs';
+const {FileBlob,PresentationFile}=await import(pathToFileURL(tool).href);
+const file='C:/Users/aimee/Documents/Codex/2026-11-12/referenced-chatgpt-conversation-this-is-an/outputs/READY72/submission/READY72_DataStory_Capstone.pptx';
+const presentation=await PresentationFile.importPptx(await FileBlob.load(file));
+const inspection=await presentation.inspect({kind:'slide,chart,notes',maxChars:12000});
+if(presentation.slides.items.length!==8) throw new Error('Expected eight slides');
+if(!inspection.ndjson.includes('chart')) throw new Error('Expected one editable chart');
+console.log(JSON.stringify({status:'pass',slides:presentation.slides.items.length,containsChart:inspection.ndjson.includes('chart')}));

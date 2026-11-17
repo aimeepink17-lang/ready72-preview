@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#092d36">
+  <meta name="description" content="READY72 is Ireland’s guide to local risks and household emergency preparedness, with official information, evidence and practical planning.">
+  <title>READY72 — Ireland’s guide to household emergency preparedness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="READY72 home">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span>READY<span class="brand-light">72</span></span>
+    </a>
+    <nav class="primary-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#overview">Overview</a>
+      <a class="nav-link" href="#signals">Live Information</a>
+      <a class="nav-link" href="#why-72">Why 72 Hours?</a>
+      <a class="nav-link" href="#plan">My Plan</a>
+      <a class="nav-link" href="evidence.html">Evidence &amp; Data</a>
+      <a class="nav-link" href="checkup.html">Readiness Check</a>
+      <a class="nav-link" href="kit.html">Build a Kit</a>
+      <a class="nav-link" href="#ask">Ask READY72</a>
+    </nav>
+    <div class="top-actions">
+      <button class="location-select" id="openLocation" type="button" aria-haspopup="dialog" aria-controls="locationDialog">
+        <span class="pin-icon" aria-hidden="true">⌖</span>
+        <span class="location-label"><small>YOUR AREA</small><b id="selectedAreaLabel">All Ireland</b></span>
+        <span aria-hidden="true">⌄</span>
+      </button>
+      <select id="countySelect" class="sr-only" aria-hidden="true" tabindex="-1">
+          <option value="all">All Ireland</option>
+          <option>Carlow</option><option>Cavan</option><option>Clare</option><option>Cork</option>
+          <option>Donegal</option><option>Dublin</option><option>Galway</option><option>Kerry</option>
+          <option>Kildare</option><option>Kilkenny</option><option>Laois</option><option>Leitrim</option>
+          <option>Limerick</option><option>Longford</option><option>Louth</option><option>Mayo</option>
+          <option>Meath</option><option>Monaghan</option><option>Offaly</option><option>Roscommon</option>
+          <option>Sligo</option><option>Tipperary</option><option>Waterford</option><option>Westmeath</option>
+          <option>Wexford</option><option>Wicklow</option>
+        </select>
+      </select>
+    </div>
+  </header>
+
+  <dialog class="location-dialog" id="locationDialog" aria-labelledby="locationTitle">
+    <div class="location-dialog-head"><div><div class="eyebrow dark-eyebrow">PERSONALISED LOCAL VIEW</div><h2 id="locationTitle">Choose your area</h2><p>See official alerts for a county. Your precise location stays on this device.</p></div><button class="dialog-close" type="button" id="closeLocation" aria-label="Close area selection">×</button></div>
+    <button class="use-location" id="useLocation" type="button"><span class="location-target" aria-hidden="true">⌖</span><span><b>Use my location</b><small>Allow location access to find your county</small></span><span class="location-arrow" aria-hidden="true">→</span></button>
+    <p class="location-feedback" id="locationFeedback" role="status" aria-live="polite">Your location is only used to identify a county. It is not saved or sent to READY72.</p>
+    <div class="map-heading"><b>Select a county</b><small>Choose a marker or use the list</small></div>
+    <div class="county-map-wrap">
+      <svg class="county-map" viewBox="0 0 420 440" role="img" aria-label="Schematic map of Ireland with selectable county locations">
+        <path class="ireland-shape" d="M197 18 221 28 234 45 255 48 262 63 280 68 288 85 280 101 294 116 291 133 305 146 299 161 310 175 300 191 308 209 298 223 306 239 296 253 301 271 286 283 288 299 274 309 276 326 261 334 260 350 245 361 240 380 225 386 214 406 196 411 183 399 165 399 157 385 142 379 136 361 120 356 119 339 104 328 109 311 96 300 99 283 85 270 94 253 82 237 91 221 79 204 88 186 78 169 89 153 82 135 94 121 92 102 107 92 107 73 124 67 132 51 151 47 161 32 179 35Z"/>
+        <path class="island-detail" d="M62 112 51 104 44 111 48 122 58 125Z M332 270 323 263 319 270 325 278Z"/>
+        <g id="countyMapPoints" aria-label="County selection markers"></g>
+      </svg>
+      <div class="county-list" id="countyList" aria-label="Choose a county"></div>
+    </div>
+    <div class="location-dialog-foot"><button class="all-ireland" id="allIreland" type="button">Show all Ireland</button><span>Area matching is approximate and based on county.</span></div>
+  </dialog>
+
+  <main id="main">
+    <section class="hero shell" id="top">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse-dot"></span> HOUSEHOLD RESILIENCE, MADE CLEAR</div>
+        <h1>Prepared with<br><em>evidence.</em></h1>
+        <p class="hero-lede">Ireland’s guide to local risks and household emergency preparedness. Understand what trusted sources are reporting and what practical steps you can take.</p>
+        <div class="hero-cta">
+          <a class="button button-lime" href="#ask">Ask a question <span aria-hidden="true">↗</span></a>
+          <a class="button button-outline" href="#plan">Build my household plan <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-trust"><span class="checkmark">✓</span> Official sources <span class="trust-sep">·</span> Clear limits <span class="trust-sep">·</span> No invented risk scores</div>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of a protected home connected to information sources">
+        <div class="orb orb-one"></div><div class="orb orb-two"></div>
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="house-card">
+          <div class="house-topline"><span>YOUR READY VIEW</span><span class="mini-live"><i></i> CHECKING SOURCES</span></div>
+          <div class="house-symbol"><div class="roof"></div><div class="home"><span class="window window-one"></span><span class="window window-two"></span><span class="door"></span></div></div>
+          <div class="house-status"><span class="status-icon">⌁</span><span><strong>Stay informed</strong><small>Know what is current and what is general advice</small></span></div>
+        </div>
+        <a class="float-chip chip-weather" href="#signals" aria-label="View live weather and local information"><span class="chip-icon weather-icon">☼</span><span><b>Weather</b><small>Official warnings</small></span><span class="chip-arrow" aria-hidden="true">↗</span></a>
+        <a class="float-chip chip-data" href="evidence.html" aria-label="Explore evidence and data"><span class="chip-icon data-icon">▥</span><span><b>Evidence</b><small>Source-linked data</small></span><span class="chip-arrow" aria-hidden="true">↗</span></a>
+        <a class="float-chip chip-chat" href="#ask" aria-label="Ask READY72 a question"><span class="chip-icon chat-icon">✳</span><span><b>Ask READY72</b><small>Understand why it matters</small></span><span class="chip-arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="signal-strip shell" aria-label="Source connection status">
+      <div class="signal-strip-label"><span class="strip-dot"></span><span><b>Source check</b><small id="checkedAt">Checking available sources…</small></span></div>
+      <div class="signal-stat"><b id="warningCount">—</b><span>active weather<br>warnings</span></div>
+      <div class="signal-stat"><b id="riverCount">—</b><span>river readings<br>loaded</span></div>
+      <div class="signal-stat"><b id="cyberCount">—</b><span>NCSC advisories<br>available</span></div>
+      <button class="icon-button refresh-button" id="refreshSources" aria-label="Refresh source information" title="Refresh sources">↻</button>
+    </section>
+
+    <section class="section shell" id="overview">
+      <div class="section-heading">
+        <div><div class="eyebrow dark-eyebrow">THE CURRENT PICTURE</div><h2>What matters to your household</h2></div>
+        <p>Each signal tells you what it is, who reported it and when it was checked.</p>
+      </div>
+      <div class="dashboard-grid" id="signals">
+        <article class="dashboard-card weather-card" id="weatherCard">
+          <div class="card-heading"><span class="card-symbol weather-symbol">☼</span><span class="card-category">WEATHER</span><span class="card-connection" id="weatherStatus">Checking</span></div>
+          <h3>Official warnings</h3>
+          <p class="card-description">Active Met Éireann warnings, with the areas closest to your selection shown first.</p>
+          <div class="data-preview" id="weatherList"><div class="loading-line"></div><div class="loading-line short"></div></div>
+          <a class="card-source" href="https://www.met.ie/weather-warnings" target="_blank" rel="noopener">Met Éireann <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="dashboard-card flood-card" id="riverCard">
+          <div class="card-heading"><span class="card-symbol flood-symbol">≈</span><span class="card-category">RIVERS & FLOODING</span><span class="card-connection" id="riverStatus">Checking</span></div>
+          <h3>River gauge readings</h3>
+          <p class="card-description">Recent observations from OPW monitoring stations. Readings are not flood warnings.</p>
+          <div class="data-preview" id="riverList"><div class="loading-line"></div><div class="loading-line short"></div></div>
+          <a class="card-source" href="https://waterlevel.ie/last/" target="_blank" rel="noopener">OPW Waterlevel.ie <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="dashboard-card power-card">
+          <div class="card-heading"><span class="card-symbol power-symbol">ϟ</span><span class="card-category">ELECTRICITY</span><span class="card-connection linkout" id="esbStatus">WIP FEED</span></div>
+          <h3>ESB power interruptions</h3>
+          <p class="card-description">Current faults and planned interruptions reported by ESB Networks.</p>
+          <div id="esbMap" class="esb-map" role="application" aria-label="Map of ESB PowerCheck outage records across Ireland"></div>
+          <div class="esb-metrics"><strong id="esbOutageCount">—</strong><span>reported records<br><small id="esbCustomerCount">Loading PowerCheck data…</small></span></div>
+          <div class="esb-outages" id="esbOutages" aria-live="polite"><div class="loading-line"></div><div class="loading-line short"></div></div>
+          <p class="powercheck-limit" id="esbFeedNote">WIP: direct read from the public PowerCheck website feed. Confirmed time, coverage and reuse terms are still being checked.</p>
+          <a class="card-source" href="https://powercheck.esbnetworks.ie/" target="_blank" rel="noopener">Open ESB PowerCheck <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="dashboard-card water-card">
+          <div class="card-heading"><span class="card-symbol water-symbol">◒</span><span class="card-category">WATER SUPPLY</span><span class="card-connection" id="waterStatus">Checking</span></div>
+          <h3>Water service &amp; quality</h3>
+          <p class="card-description">Open Uisce Éireann service updates and water-quality notices, matched to <span id="waterAreaLabel">all Ireland</span>.</p>
+          <div class="water-events" id="waterEvents" aria-live="polite"><div class="loading-line"></div><div class="loading-line short"></div></div>
+          <p class="water-feed-note" id="waterFeedNote">Checking Uisce Éireann’s public map data…</p>
+          <div class="water-footer-links"><a href="https://www.water.ie/help/water-quality/results/allresults" target="_blank" rel="noopener">Historical test results <span aria-hidden="true">↗</span></a><a href="https://www.water.ie/in-your-area?map=supply-and-service-updates" target="_blank" rel="noopener">Official map &amp; text alerts <span aria-hidden="true">↗</span></a></div>
+          <small class="water-attribution">Source: Uisce Éireann public Supply &amp; Service Updates map · data loaded by READY72.</small>
+        </article>
+        <article class="dashboard-card cyber-card" id="cyberCard">
+          <div class="card-heading"><span class="card-symbol cyber-symbol">⌘</span><span class="card-category">CYBER SECURITY</span><span class="card-connection" id="cyberStatus">Checking</span></div>
+          <h3>NCSC alerts & advisories</h3>
+          <p class="card-description">Security notices affecting products and services. An advisory does not mean you have been attacked.</p>
+          <div class="data-preview" id="cyberList"><div class="loading-line"></div><div class="loading-line short"></div></div>
+          <a class="card-source" href="https://www.ncsc.gov.ie/news/" target="_blank" rel="noopener">National Cyber Security Centre <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="dashboard-card more-card">
+          <div class="card-heading"><span class="card-symbol more-symbol">＋</span><span class="card-category">FIRE &amp; TRANSPORT</span><span class="card-connection planned">OFFICIAL SOURCES</span></div>
+          <h3>Fire & transport</h3>
+          <p class="card-description">Official tools for the current forest-risk condition and live national-road information.</p>
+          <div class="official-source-list">
+            <a class="official-source-action" href="https://teagasc.ie/crops/forestry/forest-fire-risk/" target="_blank" rel="noopener"><span class="official-source-icon fire-icon" aria-hidden="true">△</span><span><b>Current forest fire condition</b><small>Teagasc · information provided by DAFM</small></span><span class="official-source-arrow" aria-hidden="true">↗</span></a>
+            <a class="official-source-action" href="https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/fire-management/" target="_blank" rel="noopener"><span class="official-source-icon notice-icon" aria-hidden="true">!</span><span><b>DAFM fire danger notices</b><small>Official notices and public fire advice</small></span><span class="official-source-arrow" aria-hidden="true">↗</span></a>
+            <a class="official-source-action" href="https://traffic.tii.ie/" target="_blank" rel="noopener"><span class="official-source-icon road-icon" aria-hidden="true">⌁</span><span><b>TII live traffic map</b><small>National-road incidents, works and travel information</small></span><span class="official-source-arrow" aria-hidden="true">↗</span></a>
+          </div>
+          <p class="provider-note fire-transport-note"><span class="provider-badge">i</span><span>The TII map covers the national roads network. Local-road updates may be provided by your council.</span></p>
+          <a class="card-source" href="https://www.tii.ie/roads-tolling/operations-and-maintenance/network-management-traffic-control/" target="_blank" rel="noopener">About TII traffic information <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+      <p class="quiet-note"><span class="note-mark">i</span> “No matching alert found” only means the checked source returned no matching alert. It is not a guarantee that no local issue exists.</p>
+    </section>
+
+    <section class="hours-section shell" id="why-72" aria-labelledby="why72Title">
+      <div class="hours-section-heading">
+        <div><div class="eyebrow dark-eyebrow">THE PREPAREDNESS BASELINE</div><h2 id="why72Title">Why start with 72 hours?</h2><p>72 hours is a practical starting point for household preparation. Use it to build a plan around your household’s needs, and follow current official advice.</p></div>
+        <div class="hours-mark hours-mark-large" aria-hidden="true">72<br><small>HOURS</small></div>
+      </div>
+      <div class="hours-evidence-grid">
+        <article class="hours-evidence-card ireland-guidance">
+          <div class="hours-evidence-label"><span>01</span> IRELAND’S ADVICE</div>
+          <h3>Start with essentials for your household.</h3>
+          <p>Ireland’s <a href="https://assets.gov.ie/static/documents/bec7e0b9/JAV16262_OEP_Preparedness_Campaign_Accessible_EN_V3.pdf" target="_blank" rel="noopener">Be Emergency Ready booklet</a> advises keeping a 72-hour supply of non-perishable food and recommends 2–3 litres of drinking water per person per day. It also points households to medicines, lighting, warmth and individual needs.</p>
+          <span class="hours-source-note">Irish Government · Be Emergency Ready</span>
+        </article>
+        <article class="hours-evidence-card eu-guidance">
+          <div class="hours-evidence-label"><span>02</span> EU GUIDANCE</div>
+          <h3>The first days can put response systems under pressure.</h3>
+          <p>The European Commission’s 2026 population-preparedness guidance sets <strong>at least 72 hours</strong> as a self-sufficiency baseline. It says response systems may be under significant pressure in this initial period while logistics and assistance scale up.</p>
+          <a class="hours-source-link" href="https://data.consilium.europa.eu/doc/document/ST-15243-2026-ADD-2/en/pdf" target="_blank" rel="noopener">Read why the EU uses 72 hours <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="hours-evidence-card household-reason">
+          <div class="hours-evidence-label"><span>03</span> WHY IT HELPS</div>
+          <h3>Basic readiness can leave urgent help for those who need it most.</h3>
+          <p>Crises with different causes can disrupt the same essentials: electricity, water, communications or supplies. Being able to cover basic needs for a short initial period may ease pressure on responders and help assistance reach people in greater need sooner.</p>
+          <span class="hours-source-note">EU guidance · preparedness rationale, not a duration statistic</span>
+        </article>
+      </div>
+      <div class="hours-caveat"><span class="caveat-icon" aria-hidden="true">i</span><p><strong>Make a plan that fits your household.</strong> Start with the essentials you would need for three days, including water, food, medicines, warmth and information. Adapt for your location and household needs, and follow current official instructions, including evacuation advice.</p><a class="button button-outline hours-plan-link" href="#plan">Build my household plan <span aria-hidden="true">→</span></a></div>
+    </section>
+
+    <section class="why-band">
+      <div class="shell why-inner">
+        <div class="why-copy"><div class="eyebrow light-eyebrow">WHY READY72 EXISTS</div><h2>Preparedness is about<br>understanding the <em>knock-on effects.</em></h2><p>A storm can affect power, water, transport and communications. A cyber advisory can matter only if it applies to technology you use. READY72 brings the evidence and practical guidance together without claiming more than the sources show.</p><a href="#ask" class="light-link">Ask why a risk matters <span aria-hidden="true">→</span></a></div>
+        <div class="why-pillars" aria-label="The three parts of household preparedness">
+          <div class="pillar"><span class="pillar-number">01</span><span class="pillar-icon">◉</span><h3>Be aware</h3><p>Understand evidence about risks that may affect your area and household.</p></div>
+          <div class="pillar"><span class="pillar-number">02</span><span class="pillar-icon">▤</span><h3>Make a plan</h3><p>Build a practical checklist around your household’s needs.</p></div>
+          <div class="pillar"><span class="pillar-number">03</span><span class="pillar-icon">⌁</span><h3>Stay connected</h3><p>Keep trusted contacts and ways to get information close at hand.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell ask-section" id="ask">
+      <div class="section-heading">
+        <div><div class="eyebrow dark-eyebrow">ASK ABOUT THE EVIDENCE</div><h2>What do you want to understand?</h2></div>
+        <p>Ask what a warning means, why a risk matters, or what practical guidance says.</p>
+      </div>
+      <div class="chat-layout">
+        <div class="chat-main">
+          <div class="chat-top"><div class="chat-avatar">R</div><div><b>Ask READY72</b><small>Answers grounded in official guidance and checked sources</small></div><span class="ai-mode" id="aiMode">CHECKING AI</span></div>
+          <div class="chat-messages" id="chatMessages" aria-live="polite" aria-label="Chat messages">
+            <div class="chat-message assistant-message"><div class="message-avatar">R</div><div class="message-bubble"><p>Hi, I can help explain what the evidence says and why preparation may be useful. Try asking about a power cut, flooding, a weather warning or a cyber advisory.</p><small>READY72 · Grounded preview; model connection status shown above</small></div></div>
+          </div>
+          <div class="suggested-prompts" id="suggestedPrompts">
+            <button type="button" class="prompt-chip">Why prepare for a power cut?</button>
+            <button type="button" class="prompt-chip">What does a weather warning tell me?</button>
+            <button type="button" class="prompt-chip">How can a cyber advisory affect a household?</button>
+          </div>
+          <form class="chat-form" id="chatForm">
+            <label class="sr-only" for="chatInput">Ask READY72 a question</label>
+            <textarea id="chatInput" rows="1" maxlength="1200" placeholder="Ask a question about risks, evidence or getting prepared…"></textarea>
+            <button type="submit" class="send-button" aria-label="Send question">↑</button>
+          </form>
+          <p class="ai-setup-note" id="aiSetupNote" hidden>Model answers are not connected yet. Add your API key to the server’s private <code>.env</code> file and restart READY72. The key must stay on the server, never in this page.</p>
+          <div class="chat-privacy"><span>⌑</span> Your question is sent without a household profile or personal plan details. Checklist data stays in this browser.</div>
+        </div>
+        <aside class="chat-side">
+          <div class="side-card evidence-card"><div class="side-card-icon">✳</div><h3>Answers should show their working</h3><p>Each reply labels its evidence: current warning, service update, measurement, historical data, risk assessment or general advice.</p><div class="evidence-key"><span><i class="key-live"></i>Current source</span><span><i class="key-history"></i>Context</span><span><i class="key-guidance"></i>Practical steps</span></div></div>
+          <div class="side-card safety-card"><div class="safety-icon">!</div><div><b>In immediate danger?</b><p>Follow emergency-service instructions. Call <strong>112 or 999</strong>.</p></div></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="plan-section" id="plan">
+      <div class="shell">
+        <div class="section-heading plan-heading">
+          <div><div class="eyebrow dark-eyebrow">MAKE A PLAN — AT YOUR OWN PACE</div><h2>A little preparation counts.</h2></div>
+          <p>A private checklist guided by Ireland’s Be Emergency Ready booklet. Your progress stays in this browser.</p>
+        </div>
+        <div class="plan-layout">
+          <div class="plan-checklist" id="planChecklist"></div>
+          <aside class="plan-progress-card">
+            <div class="progress-label">YOUR CHECKLIST</div>
+            <div class="progress-number"><span id="planComplete">0</span><small> / <span id="planTotal">0</span></small></div>
+            <div class="progress-track"><span id="planBar"></span></div>
+            <p id="progressMessage">Start with one thing you already have. Some preparation is better than none.</p>
+            <button type="button" class="button button-outline" id="printPlan">Print my plan <span aria-hidden="true">↗</span></button>
+            <button type="button" class="reset-plan" id="resetPlan">Clear saved progress</button>
+            <small class="local-storage-note">Saved only in this browser. READY72 does not receive your checklist.</small>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="pathway-links shell" aria-label="Explore READY72 tools">
+      <a class="pathway-link evidence-pathway" href="evidence.html"><span class="pathway-kicker">WHY GOVERNMENTS ARE URGING PREPAREDNESS</span><b>Explore the evidence &amp; data</b><small>Irish and EU findings on weather, cyber risks and connected essential services.</small><span class="pathway-arrow" aria-hidden="true">↗</span></a>
+      <a class="pathway-link checkup-pathway" href="checkup.html"><span class="pathway-kicker">A QUICK, PRIVATE SELF-CHECK</span><b>Check your readiness</b><small>Answer eight practical questions and get next steps for your household.</small><span class="pathway-arrow" aria-hidden="true">↗</span></a>
+      <a class="pathway-link kit-pathway" href="kit.html"><span class="pathway-kicker">MAKE IT PRACTICAL</span><b>Build your 72-hour kit</b><small>Use the household checklist and calculate a drinking-water starting point.</small><span class="pathway-arrow" aria-hidden="true">↗</span></a>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="shell how-inner"><div><div class="eyebrow light-eyebrow">A CLEARER WAY TO GET READY</div><h2>Evidence first.<br><em>Practical next steps.</em></h2></div><div class="how-steps"><div><b>01</b><span><strong>See what is current</strong><small>Official warnings and reported service updates, with timestamps.</small></span></div><div><b>02</b><span><strong>Ask what it means</strong><small>The chatbot connects evidence to plain-language explanations.</small></span></div><div><b>03</b><span><strong>Make your own plan</strong><small>Private, printable steps based on official guidance.</small></span></div></div></div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>READY<span class="brand-light">72</span></span></a>
+    <p>Independent information prototype. Not an emergency service or government warning authority.</p>
+    <div class="footer-links"><a href="https://www.gov.ie/en/office-of-emergency-planning/campaigns/be-emergency-ready/" target="_blank" rel="noopener">Be Emergency Ready ↗</a><a href="#top">Back to top ↑</a></div>
+    <small class="attribution">Met Éireann · Office of Public Works · National Cyber Security Centre. Source and licence details are maintained in the project source register.</small>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

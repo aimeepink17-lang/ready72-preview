@@ -1,0 +1,76 @@
+{
+  "sources": [
+    {
+      "id": "booklet",
+      "label": "Be Emergency Ready booklet",
+      "url": "https://assets.gov.ie/static/documents/bec7e0b9/JAV16262_OEP_Preparedness_Campaign_Accessible_EN_V3.pdf",
+      "type": "official guidance",
+      "topics": ["preparedness", "plan", "household", "72 hours", "water", "food", "medicine", "pets", "evacuation", "contacts", "radio", "power cut", "communications", "community", "flood", "storm", "cyber"],
+      "text": "The Office of Emergency Planning booklet uses three steps: be aware, make a plan, and connect with people. It says emergencies can disrupt power, water, communications or transport and households should try to support their needs for 72 hours. Its checklist recommends 2–3 litres of drinking water per person per day where possible; a 72-hour supply of non-perishable food; considering dietary needs, children and pets; keeping prescription medicines up to date, copies of prescriptions and medical-condition details, a first aid kit and hygiene supplies; a torch or lamp with spare batteries; blankets, sleeping bags or thermal blankets; knowing utility shut-off locations and MPRN/GPRN; a battery, wind-up or solar radio and spare batteries; phone, charger and power bank; emergency contacts and Eircode; important documents in a waterproof file; local maps and spare keys; and planning for evacuation. Some preparation is better than none. Follow emergency-service instructions. Call 112 or 999 in an emergency; text 112 if unable to make a voice call. The booklet says gas must only be turned back on by a qualified engineer."
+    },
+    {
+      "id": "eu-72-hours",
+      "label": "European Commission population preparedness guidance on 72-hour self-sufficiency",
+      "url": "https://data.consilium.europa.eu/doc/document/ST-15243-2026-ADD-2/en/pdf",
+      "type": "official EU preparedness guidance",
+      "topics": ["72 hours", "72-hour", "minimum", "self-sufficiency", "preparedness", "why prepare", "emergency supplies", "response systems", "crisis", "essential services"],
+      "text": "The European Commission's 2026 population-preparedness guidance recommends at least 72 hours of basic household self-sufficiency as a minimum baseline. It explains that the first 72 hours of a crisis can involve uncertainty and significant pressure on response systems while logistics and assistance scale up. People meeting basic needs themselves can help emergency resources be prioritised for those most in need. This rationale does not mean every incident lasts 72 hours, that restoration occurs by then, or that the same supplies suit every household. Different crises may disrupt essential services, communications and supply chains. Adapt advice to household needs, local context and national instructions."
+    },
+    {
+      "id": "met-warnings",
+      "label": "Met Éireann weather warnings",
+      "url": "https://www.met.ie/weather-warnings",
+      "type": "official warning guidance",
+      "topics": ["weather", "warning", "storm", "wind", "rain", "flood", "travel", "county"],
+      "text": "Met Éireann issues official weather warnings for Ireland using its warning levels and affected areas. A warning describes expected weather and potential impacts during its stated validity period. READY72 must preserve the issuing authority, warning level, affected place, issue/update time, onset and expiry. An active warning is evidence of the official warning, not proof that a specific household will be affected. Follow Met Éireann and emergency-service advice."
+    },
+    {
+      "id": "opw-levels",
+      "label": "OPW latest water-level readings",
+      "url": "https://waterlevel.ie/last/",
+      "type": "observed measurements",
+      "topics": ["river", "flood", "water level", "gauge", "observation"],
+      "text": "OPW latest readings are station measurements, not flood warnings. Values must be shown with their station, sensor meaning, timestamp and source. Water-level sensor 0001 is the main water-level series; 0011 is a backup water-level sensor. A measurement alone does not establish that a flood is occurring or predict one. Do not apply a universal threshold across gauges. Use official flood warnings and local authority advice for actions. OPW data are licensed CC BY 4.0 with attribution; only station references 00001–41000 are suitable for republication without express permission."
+    },
+    {
+      "id": "ncsc",
+      "label": "National Cyber Security Centre alerts and advisories",
+      "url": "https://www.ncsc.gov.ie/news/",
+      "type": "official cyber advisory",
+      "topics": ["cyber", "security", "scam", "fraud", "vulnerability", "device", "advisory", "attack"],
+      "text": "The NCSC publishes alerts and advisories about cybersecurity issues that may affect Ireland. An advisory may concern a software vulnerability or product and does not mean an individual household has been attacked or that every user is affected. Check the named product/version and the NCSC-recommended action. Do not infer local incident rates from the advisory feed. The 2025 National Cyber Risk Assessment describes systemic and cross-sector cyber risks; it is national context, not an alert about a current household incident."
+    },
+    {
+      "id": "esb",
+      "label": "ESB Networks PowerCheck",
+      "url": "https://powercheck.esbnetworks.ie/",
+      "type": "provider status service",
+      "topics": ["power", "electricity", "outage", "power cut", "restoration", "utility"],
+      "text": "ESB Networks PowerCheck is the official place to check reported electricity service interruptions and estimated restoration information. READY72 displays a WIP connection to the public PowerCheck feed. The feed may omit smaller interruptions and does not establish whether a particular household has power. Listed customer impacts across records may overlap. Direct users to PowerCheck for authoritative status for their area. An estimated restoration time is an estimate and can change. Treat electricity as live during an outage; follow ESB Networks safety advice, especially around fallen wires."
+    },
+    {
+      "id": "uisce",
+      "label": "Uisce Éireann supply and service updates",
+      "url": "https://www.water.ie/water-service-updates",
+      "type": "provider status service",
+      "topics": ["water", "supply", "water quality", "boil water", "outage", "service update"],
+      "text": "Uisce Éireann provides a public map for supply and service updates and a free text-alert service that customers can choose to sign up for using their Eircode and mobile number. READY72 queries the public ArcGIS FeatureServer layer used by the provider's map for open, approved county listings, including supply interruptions and several water-quality/service notice types. This is a WIP connection: the official Open Data page does not explicitly document the live map layer's reuse terms or guarantee a stable API. The provider notes that not all supply issues are immediately visible. Treat returned records as provider-listed notices, not household-level confirmation; an empty or unavailable list is not proof that a household has no issue. Keep the official map and text-alert link available. READY72 must not collect an Eircode or phone number to imitate provider alerts."
+    },
+    {
+      "id": "climate-evidence",
+      "label": "EPA climate observations and projections",
+      "url": "https://www.climateireland.ie/media/epa-2020/monitoring-amp-assessment/climate-change/climate-ireland/EPA_NCCRA_Technical-Report_Published_July_2025-%28amended%29.pdf",
+      "type": "historical analysis and modelled scenarios",
+      "topics": ["climate", "rainfall", "heavy rain", "future", "projection", "preparedness", "why prepare", "storm", "flood"],
+      "text": "EPA's 2025 National Climate Change Risk Assessment reports that heavy-rainfall intensity has increased in parts of Ireland, notably the east and southeast, while it finds no persistent trend in annual rainfall totals or consecutive wet days. These observations are mixed and depend on the measure and region. EPA projections suggest maximum five-day rainfall around mid-century could rise by about 6.7% under RCP4.5 and 6.9% under RCP8.5 relative to 1976–2005, but the ranges are wide (−4.1% to +18.9%; −3.1% to +18.0%) and confidence is low. Climate projections describe scenario-based averages, not a forecast for a particular year, storm, area or household. EPA also identifies risks from extreme wind, including disruption to energy and communications. This evidence supports preparing for a range of plausible disruptions; it does not mean a specific event is imminent or guarantee what will happen. Follow current official warnings and service updates. See also the Climate Ireland FAQ: https://www.climateireland.ie/data-explorer/faqs/"
+    },
+    {
+      "id": "national-risk",
+      "label": "Government National Risk Assessment",
+      "url": "https://www.gov.ie/en/department-of-the-taoiseach/policy-information/national-risk-assessment-2024-overview-of-strategic-risks/",
+      "type": "national risk context",
+      "topics": ["why prepare", "risk", "national", "energy", "supply chain", "cyber", "climate", "pandemic"],
+      "text": "The Government National Risk Assessment is a strategic, national-level review intended to inform discussion and planning. It is not a live warning, a local probability estimate, or evidence that a named event is imminent. READY72 can use it to explain why certain risks receive attention, while clearly distinguishing it from local current alerts and observations."
+    }
+  ]
+}

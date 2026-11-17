@@ -1,0 +1,8 @@
+{
+  "name": "ready72-preview",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.mjs"
+  }
+}

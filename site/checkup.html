@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#092d36">
+  <meta name="description" content="Take READY72’s quick household emergency preparedness self-check and get practical next steps.">
+  <title>Readiness Check | READY72</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="index.html#top" aria-label="READY72 home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>READY<span class="brand-light">72</span></span></a>
+    <nav class="primary-nav" aria-label="Main navigation">
+      <a class="nav-link" href="index.html#overview">Overview</a>
+      <a class="nav-link" href="index.html#signals">Live Information</a>
+      <a class="nav-link" href="index.html#why-72">Why 72 Hours?</a>
+      <a class="nav-link" href="evidence.html">Evidence &amp; Data</a>
+      <a class="nav-link active" href="checkup.html" aria-current="page">Readiness Check</a>
+      <a class="nav-link" href="kit.html">Build a Kit</a>
+      <a class="nav-link" href="index.html#plan">My Plan</a>
+      <a class="nav-link" href="index.html#ask">Ask READY72</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="checkup-hero shell">
+      <div class="eyebrow dark-eyebrow">A QUICK, PRIVATE SELF-CHECK</div>
+      <h1>How ready is your household<br><em>for the first few days?</em></h1>
+      <p>Answer eight practical questions to see what you’ve covered and choose useful next steps. READY72 is Ireland’s guide to local risks and household emergency preparedness.</p>
+      <div class="checkup-promise"><span aria-hidden="true">✓</span> No account. No personal details. Your answers stay on this page.</div>
+    </section>
+
+    <section class="checkup-shell shell" aria-label="Household preparedness self-check">
+      <div class="checkup-context"><b>How to read your result</b><span>Each “yes” earns 2 points, “partly” earns 1, and “not yet / not sure” earns 0. READY72’s simple guide is 0–7: getting started, 8–12: building, 13–16: many basics in place. These are prototype bands—not official ratings, a measure of your risk, or a guarantee of safety. <a href="https://assets.gov.ie/static/documents/bec7e0b9/JAV16262_OEP_Preparedness_Campaign_Accessible_EN_V3.pdf" target="_blank" rel="noopener">Ireland’s Be Emergency Ready checklist ↗</a></span></div>
+      <form id="readinessQuiz" class="readiness-quiz" novalidate>
+        <div class="checkup-progress"><div class="checkup-progress-top"><span id="questionNumber">QUESTION 1 OF 8</span><span id="questionProgressText">0 of 8 answered</span></div><div class="checkup-progress-track"><span id="questionProgressBar"></span></div></div>
+        <div id="quizQuestion" class="quiz-question" aria-live="polite"></div>
+        <p id="quizError" class="quiz-error" role="alert" hidden>Choose an answer to continue.</p>
+        <div class="quiz-controls"><button type="button" class="quiz-back" id="previousQuestion" disabled>← Back</button><button type="button" class="button button-lime quiz-next" id="nextQuestion">Next question <span aria-hidden="true">→</span></button></div>
+      </form>
+
+      <section class="readiness-results" id="readinessResults" aria-labelledby="resultsTitle" hidden>
+        <div class="result-score-card"><div class="eyebrow dark-eyebrow">YOUR HOUSEHOLD SNAPSHOT</div><h2 id="resultsTitle" tabindex="-1">A useful starting point.</h2><div class="result-score"><b id="resultScore">0</b><span>/ 16<br>points</span></div><p id="resultSummary"></p><div class="result-score-track"><span id="resultScoreBar"></span></div></div>
+        <div class="result-next-steps"><div class="eyebrow dark-eyebrow">A FEW PRACTICAL NEXT STEPS</div><h3>Start with the gaps that matter to you.</h3><div id="recommendationList" class="recommendation-list"></div><div class="result-actions"><a class="button button-lime" href="kit.html#kits">Build your kit <span aria-hidden="true">↗</span></a><a class="result-plan-link" href="index.html#plan">Open my household plan <span aria-hidden="true">→</span></a></div><button type="button" class="retake-check" id="retakeCheck">Review my answers</button></div>
+      </section>
+      <p class="checkup-emergency-note">If you are in immediate danger, follow emergency-service instructions and call <strong>112 or 999</strong>. This self-check is for planning ahead; it is not an emergency service.</p>
+    </section>
+  </main>
+
+  <footer class="footer shell"><a class="brand footer-brand" href="index.html#top"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>READY<span class="brand-light">72</span></span></a><p>Independent information prototype. Not an emergency service or government warning authority.</p><div class="footer-links"><a href="https://www.gov.ie/en/office-of-emergency-planning/campaigns/be-emergency-ready/" target="_blank" rel="noopener">Be Emergency Ready ↗</a><a href="index.html#top">Back to READY72 ↑</a></div></footer>
+  <script src="checkup.js" defer></script>
+</body>
+</html>

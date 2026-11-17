@@ -1,0 +1,49 @@
+# READY72 website and chatbot preview
+
+READY72 is an Ireland-focused household preparedness prototype. It brings current source checks, evidence, a private readiness self-check, a household plan, kit guidance and a source-grounded chatbot into one place.
+
+## Run locally
+
+From this `site` folder, set up a private `.env` file using `.env.example`, then start the preview:
+
+```powershell
+npm.cmd start
+```
+
+Open `http://127.0.0.1:8767` unless `PORT` is set to a different local port. The app uses Node.js built-in modules and has no third-party package install step.
+
+## Data connections
+
+The local server retrieves current information from Met Éireann weather warnings, OPW river-level GeoJSON and NCSC advisories. It also queries the public ArcGIS layer used by Uisce Éireann’s service map for open, approved county listings. The Uisce Éireann and ESB PowerCheck connections are marked WIP: public access has been explored, but supported access and reuse terms have not been confirmed. Keep provider links visible and treat these records as incomplete provider listings, not household-level confirmation.
+
+The ESB PowerCheck view displays reported interruptions and estimated restoration information where returned. Customer impact counts across records can overlap; the feed may omit smaller issues; estimates can change. Confirm current service status on ESB’s official map.
+
+OPW readings are observations, not flood warnings. The rainfall analysis uses historical gridded data and is marked preliminary. Historical values and scenario projections do not predict an event for a household.
+
+## Chatbot
+
+When `OPENAI_API_KEY` is available in the private server environment, READY72 sends the question, selected county and relevant source excerpts to the OpenAI Responses API. The key is not served to browser code, requests use `store: false`, and checklist answers are not sent. API usage is billed separately from ChatGPT and requires API billing or credit.
+
+Without a key, the site answers common questions with a deterministic, source-linked local preview. The interface labels this mode so it is not mistaken for model-generated AI. Both modes should distinguish live warnings, service records, measurements, historical context and general guidance; cite sources; and say when information is missing or uncertain.
+
+## Readiness check and privacy
+
+The eight-question self-check returns a simple 0–16 snapshot and links suggested next steps to the kit builder or plan. Its bands are prototype labels, not official ratings or validated risk measures. Answers remain in page memory and are not sent to READY72.
+
+The household plan is stored in this browser and can be printed. It is not sent to the chatbot or server.
+
+For a short formative review of the user journey, source understanding and next-step recommendations, use [`../READY72-USER-REVIEW.md`](../READY72-USER-REVIEW.md). Record observed completion and friction honestly; do not present a small convenience sample as representative research.
+
+## Response-safety checks
+
+Run the deterministic chatbot checks with:
+
+```powershell
+node acceptance-tests.mjs
+```
+
+These checks cover important source and safety boundaries but do not establish that model-generated responses are accurate. A model-backed check requires network access and a configured API key; record its model, date and results separately.
+
+## Before public deployment
+
+Static hosting alone cannot run the live-data and chat endpoints. Deploy those routes to a protected server environment, configure secrets outside source control, confirm data-provider access and reuse terms, and evaluate the deployed experience. Never put an API key in client-side JavaScript or a published repository.

@@ -1,0 +1,16 @@
+{
+  "source": "Met Eireann daily rainfall 1 km grids, calendar years 2016-2025",
+  "source_url": "https://clidata.met.ie/cli/grids_daily/",
+  "grid_points_each_year": 70091,
+  "cell_frequency_quantiles_days_over_10_years": {
+    "min": 11.0,
+    "p25": 49.0,
+    "median": 72.0,
+    "p75": 109.0,
+    "p90": 164.0,
+    "p95": 205.0,
+    "p99": 280.0,
+    "max": 463.0
+  },
+  "interpretation": "Grid-cell day counts are spatially interpolated historical estimates, not household-level observations, warnings, or forecasts."
+}
