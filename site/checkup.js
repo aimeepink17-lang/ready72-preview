@@ -6,7 +6,7 @@
     {id:'information',title:'Could you get important information if mobile data or broadband was unavailable?',help:'A battery or wind-up radio, written contacts and knowing which official channels to listen to can help.',tip:'Write down trusted contacts and identify a radio or another way to hear official updates.',link:'index.html#signals',linkText:'See READY72 source links'},
     {id:'health',title:'Do you have essential medicines, first aid and basic hygiene supplies to hand?',help:'Think about what members of your household need regularly and what could be difficult to replace at short notice.',tip:'Check prescriptions, first-aid basics and personal hygiene supplies; ask a pharmacist or clinician about medical needs.',link:'kit.html#kits',linkText:'Review health and hygiene items'},
     {id:'specific',title:'Have you considered needs specific to your household?',help:'This might include infants, disability or mobility needs, dietary requirements, older people or pets.',tip:'Add the items and support arrangements that matter to the people and animals in your home.',link:'kit.html#kits',linkText:'Personalise your kit checklist'},
-    {id:'plan',title:'Do you have a simple plan and key contacts available if phones or internet fail?',help:'Include your Eircode, how household members will check in, important contacts and any evacuation needs.',tip:'Write down your Eircode and contacts, and agree how you will check in with each other.',link:'index.html#plan',linkText:'Open the household plan'},
+    {id:'plan',title:'Do you have a simple plan and key contacts available if phones or internet fail?',help:'Include your Eircode, how household members will check in, important contacts and any evacuation needs.',tip:'Write down your Eircode and contacts, and agree how you will check in with each other.',link:'checkup.html#householdPlan',linkText:'Open the household plan'},
     {id:'cash',title:'Could you cover an essential small purchase if electronic payments were temporarily unavailable?',help:'A modest cash reserve may help. Choose an amount that is affordable and store it safely; no particular amount is required.',tip:'Consider keeping a small, affordable amount of cash securely, and check official guidance on offline payment options where available.',link:'kit.html#kits',linkText:'Add cash to your kit checklist'}
   ];
   const answers=Object.create(null);
@@ -27,15 +27,18 @@
     questionRoot.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{answers[q.id]=input.value;$('questionProgressText').textContent=`${answeredCount()} of ${questions.length} answered`;$('quizError').hidden=true;}));
   }
   function showResults(){
-    const score=questions.reduce((sum,q)=>sum+Number(answers[q.id]||0),0);
-    $('resultScore').textContent=String(score);
-    $('resultScoreBar').style.width=`${score/questions.length/2*100}%`;
-    const resultTitle=score<8?'A good place to start.':score<13?'You’re building your baseline.':'Many of these basics are in place.';
+    const uncovered=questions.filter(q=>answers[q.id]==='0').length;
+    const partlyCovered=questions.some(q=>answers[q.id]==='1');
+    const resultTitle=uncovered>3?'A useful place to start.':uncovered>0||partlyCovered?'You’re building your household baseline.':'Many useful basics are in place.';
     $('resultsTitle').textContent=resultTitle;
-    $('resultSummary').textContent=`You marked ${score} of 16 points across these eight prompts. This is a snapshot of your answers—not a measure of your household’s risk or a guarantee that services will remain available.`;
-    const gaps=questions.filter(q=>Number(answers[q.id]||0)<2).sort((a,b)=>Number(answers[a.id]||0)-Number(answers[b.id]||0)).slice(0,4);
+    const gaps=questions.filter(q=>Number(answers[q.id]||0)<2).sort((a,b)=>Number(answers[a.id]||0)-Number(answers[b.id]||0)).slice(0,3);
+    $('resultSummary').textContent=gaps.length?'Your answers highlight a few areas you could strengthen at your own pace. These suggestions are a starting point, not a measure of risk.':'You marked each area as covered. Review supplies occasionally and adapt your plan when household needs change.';
+    const covered=$('coveredList');covered.replaceChildren();
+    const coveredItems=questions.filter(q=>answers[q.id]==='2');
+    if(!coveredItems.length){const note=document.createElement('p');note.className='covered-empty';note.textContent='You have not marked any area as fully covered yet. That is okay—choose one practical step to begin.';covered.append(note);}
+    else coveredItems.forEach(q=>{const item=document.createElement('span');item.className='covered-item';item.textContent=q.title.replace(/^Could your household |^Do you have |^Could you |^Have you |^Have you considered |^Do you /,'').replace(/\?$/,'');covered.append(item);});
     const list=$('recommendationList');list.replaceChildren();
-    if(!gaps.length){const message=document.createElement('p');message.className='recommendation-all-set';message.textContent='You marked every area as covered. Review your supplies from time to time and adjust them if your household needs change.';list.append(message);}
+    if(!gaps.length){const message=document.createElement('p');message.className='recommendation-all-set';message.textContent='Your answers suggest you have the basics covered. Use the full checklist below to review details and tailor the plan.';list.append(message);}
     else gaps.forEach(q=>{
       const card=document.createElement('article');card.className='recommendation-card';
       const label=document.createElement('span');label.className='recommendation-status';label.textContent=answers[q.id]==='1'?'PARTLY COVERED':'A NEXT STEP';

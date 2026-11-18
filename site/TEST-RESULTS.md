@@ -1,6 +1,6 @@
 # READY72 response-safety check results
 
-Run the deterministic tests from this folder with:
+Run the deterministic response checks from this folder with:
 
 ```powershell
 node acceptance-tests.mjs
@@ -15,10 +15,10 @@ node acceptance-tests.mjs
 | 72-hour guidance | Starting baseline is not described as an outage-duration prediction | Pass |
 | Water notices | County-filtered provider records include source limits and are not household-level confirmation | Pass |
 
-All six deterministic checks passed on 16 November 2026. The water test uses a fixed example response; it checks answer behavior, not live Uisce Éireann connectivity.
+All six deterministic checks passed on 18 November 2026. The water test uses a fixed example response; it checks answer behavior, not live Uisce Éireann connectivity.
 
-`server.mjs`, `app.js`, `checkup.js`, `kit.js` and `evidence.js` passed Node syntax checks. `knowledge.json` parsed successfully.
+`server.mjs`, `app.js`, `ask.js`, `checkup.js`, `plan.js`, `intel-panel.js`, `nav.js`, `kit.js` and `evidence.js` passed Node syntax checks. `knowledge.json` parsed successfully.
 
-One model-backed response was also checked through the configured preview: the health endpoint reported `gpt-6-luna`, and a power-preparedness question returned an answer with three source links. This is a single functional check, not a quality evaluation. Review of the answer found wording that could imply 72 hours is a ceiling; the system prompt has since been tightened to describe it as a practical starting point or a minimum.
+The extended local smoke check verified the health endpoint, home page, all five dedicated section pages, seven-item navigation, intelligence panel asset, analysis data route, source-linked local chat, no-score readiness result, Storm Éowyn case study and stated data limits, future kit categories without a pretend checkout, and source freshness/official-alert distinction. All 15 checks passed on 18 November 2026. The local smoke run did not use the OpenAI API key or make a paid model request.
 
-A separate local instance on port 8767 reported that model answers were not configured, while the configured preview on port 8770 was using the model. The water question on that already-running model instance did not include the live provider notices. The source retrieval and answer logic has now been updated to include county-filtered water listings, but the running instances have not been restarted with those edits, so that specific live-water chatbot change still needs an end-to-end check after restart.
+One model-backed response was checked through the configured preview before this UI branch: the health endpoint reported `gpt-6-luna`, and a power-preparedness question returned an answer with source links. This was a single functional check, not a quality evaluation. The current smoke suite did not make a paid model request; it verifies the existing API routes and local fallback without transmitting a new prompt.

@@ -2,6 +2,10 @@
 
 READY72 is an Ireland-focused household preparedness prototype. It brings current source checks, evidence, a private readiness self-check, a household plan, kit guidance and a source-grounded chatbot into one place.
 
+## Website sections
+
+The seven primary sections are Home, Live Intelligence, Ask READY72, Get Prepared, Evidence & Insights, Preparedness Kits, and About & Sources. Live Intelligence cards open a detail panel with Current, Evidence and Prepare tabs. The dedicated Ask READY72 page shares the existing server-backed assistant; the homepage keeps a compact version.
+
 ## Run locally
 
 From this `site` folder, set up a private `.env` file using `.env.example`, then start the preview:
@@ -28,9 +32,9 @@ Without a key, the site answers common questions with a deterministic, source-li
 
 ## Readiness check and privacy
 
-The eight-question self-check returns a simple 0–16 snapshot and links suggested next steps to the kit builder or plan. Its bands are prototype labels, not official ratings or validated risk measures. Answers remain in page memory and are not sent to READY72.
+The eight-question self-check does not display a numerical preparedness score. It returns three priority actions and recognises areas the user marked as already covered. Answers remain in page memory and are not sent to READY72.
 
-The household plan is stored in this browser and can be printed. It is not sent to the chatbot or server.
+The household plan is available on Get Prepared, stored in this browser and can be printed. It is not sent to the chatbot or server. Kit selections are also stored locally in this browser.
 
 For a short formative review of the user journey, source understanding and next-step recommendations, use [`../READY72-USER-REVIEW.md`](../READY72-USER-REVIEW.md). Record observed completion and friction honestly; do not present a small convenience sample as representative research.
 
@@ -44,6 +48,6 @@ node acceptance-tests.mjs
 
 These checks cover important source and safety boundaries but do not establish that model-generated responses are accurate. A model-backed check requires network access and a configured API key; record its model, date and results separately.
 
-## Before public deployment
+## Preview deployment
 
-Static hosting alone cannot run the live-data and chat endpoints. Deploy those routes to a protected server environment, configure secrets outside source control, confirm data-provider access and reuse terms, and evaluate the deployed experience. Never put an API key in client-side JavaScript or a published repository.
+The review deployment uses the separate `preview` branch on Render. The redesign is being developed on `feature/ready72-redesign`; it does not auto-deploy to the live preview. Keep API keys in protected server settings and never put a key in browser code or a published repository. ESB PowerCheck and public Uisce Éireann map listings remain clearly labelled as work in progress because supported access and reuse conditions are not confirmed.

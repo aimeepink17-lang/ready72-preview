@@ -389,6 +389,7 @@
 
   function renderPlan() {
     const target = $('planChecklist');
+    if (!target) return;
     target.replaceChildren();
     let index = 0;
     for (const group of plan) {
@@ -416,8 +417,9 @@
   }
 
   function updatePlanProgress() {
-    const total = $('planChecklist').querySelectorAll('input[type=checkbox]').length;
-    const complete = $('planChecklist').querySelectorAll('input:checked').length;
+    const target=$('planChecklist');if(!target)return;
+    const total = target.querySelectorAll('input[type=checkbox]').length;
+    const complete = target.querySelectorAll('input:checked').length;
     $('planComplete').textContent = complete;
     $('planTotal').textContent = total;
     $('planBar').style.width = total ? `${complete / total * 100}%` : '0%';
@@ -494,10 +496,12 @@
     $('countyList').querySelectorAll('.county-option').forEach(button=>button.classList.toggle('selected',button.textContent===selected));
     $('countyMapPoints').querySelectorAll('.county-map-point').forEach(point=>point.classList.toggle('selected',point.dataset.county===selected));
   }
-  function setCounty(county){$('countySelect').value=county;$('selectedAreaLabel').textContent=county==='all'?'All Ireland':county;$('locationDialog').close();$('locationFeedback').textContent=county==='all'?'Showing information across Ireland.':'Showing county-level information for '+county+'.';updateAreaSelection();if(latestData)$('warningCount').textContent=renderWarnings(latestData.weather);refreshSources();}
+  function setCounty(county){$('countySelect').value=county;$('selectedAreaLabel').textContent=county==='all'?'All Ireland':county;$('locationDialog').close();$('locationFeedback').textContent=county==='all'?'Showing information across Ireland.':'Showing county-level information for '+county+'.';try{localStorage.setItem('ready72County',county)}catch{}updateAreaSelection();if(latestData)$('warningCount').textContent=renderWarnings(latestData.weather);refreshSources();}
 
   function buildCountyPicker(){
     const points=$('countyMapPoints'),list=$('countyList');
+    try{const saved=localStorage.getItem('ready72County');if(saved==='all'||countyNames.includes(saved))$('countySelect').value=saved;}catch{}
+    $('selectedAreaLabel').textContent=$('countySelect').value==='all'?'All Ireland':$('countySelect').value;
     countyNames.forEach(name=>{
       const [lat,lon]=countyLocations[name],x=92+(lon+10.6)*43,y=390-(lat-51.5)*80;
       const group=document.createElementNS('http://www.w3.org/2000/svg','g');group.setAttribute('class','county-map-point');group.setAttribute('transform',`translate(${x.toFixed(1)} ${y.toFixed(1)})`);group.setAttribute('role','button');group.setAttribute('tabindex','0');group.setAttribute('aria-label',`Select County ${name}`);group.dataset.county=name;
@@ -534,7 +538,7 @@
   $('chatInput').addEventListener('input',event=>{event.target.style.height='auto';event.target.style.height=`${Math.min(event.target.scrollHeight,100)}px`;});
   $('chatInput').addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();$('chatForm').requestSubmit();}});
   $('suggestedPrompts').addEventListener('click',event=>{const button=event.target.closest('.prompt-chip');if(button)ask(button.textContent);});
-  $('printPlan').addEventListener('click',()=>window.print());
-  $('resetPlan').addEventListener('click',()=>{if(!window.confirm('Clear saved checklist progress in this browser?'))return;localStorage.removeItem('ready72Plan');renderPlan();announce('Checklist progress cleared from this browser.');});
+  $('printPlan')?.addEventListener('click',()=>window.print());
+  $('resetPlan')?.addEventListener('click',()=>{if(!window.confirm('Clear saved checklist progress in this browser?'))return;localStorage.removeItem('ready72Plan');renderPlan();announce('Checklist progress cleared from this browser.');});
   buildCountyPicker();renderPlan();setupKitBuilder(); loadRainfallChart(); refreshSources(); checkAiConnection();
 })();

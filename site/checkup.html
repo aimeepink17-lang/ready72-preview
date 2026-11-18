@@ -35,8 +35,14 @@
       <div class="checkup-promise"><span aria-hidden="true">✓</span> No account. No personal details. Your answers stay on this page.</div>
     </section>
 
+    <section class="baseline-section shell" id="why-72" aria-labelledby="baselineTitle">
+      <div class="baseline-heading"><div><div class="eyebrow dark-eyebrow">A PRACTICAL STARTING POINT</div><h2 id="baselineTitle">Why begin with 72 hours?</h2><p>It gives a household a clear, manageable first planning target. It is not a prediction of how long a disruption will last or a guarantee that every emergency is resolved within three days.</p></div><span class="baseline-mark" aria-label="72 hours">72<small>HOURS</small></span></div>
+      <div class="baseline-cards"><article><span>IRELAND’S GUIDANCE</span><h3>Start with the essentials you would use.</h3><p>The Be Emergency Ready booklet recommends keeping non-perishable food for 72 hours and 2–3 litres of drinking water per person per day, alongside medicines, lighting, warmth and household-specific needs.</p><a href="https://assets.gov.ie/static/documents/bec7e0b9/JAV16262_OEP_Preparedness_Campaign_Accessible_EN_V3.pdf" target="_blank" rel="noopener">Read the Irish booklet ↗</a></article><article><span>EU PREPAREDNESS</span><h3>Plan for the initial period when systems may be under pressure.</h3><p>European Commission population-preparedness guidance uses at least 72 hours as a self-sufficiency baseline, while response capacity and supply arrangements are mobilised.</p><a href="https://data.consilium.europa.eu/doc/document/ST-15243-2026-ADD-2/en/pdf" target="_blank" rel="noopener">Read the EU guidance ↗</a></article><article><span>MAKE IT YOURS</span><h3>Adapt the baseline to the people in your home.</h3><p>Households may need more or different supplies depending on health, mobility, children, pets, local risks and official instructions. Start with what is affordable and useful to you.</p><a href="kit.html#kits">Build a household kit ↗</a></article></div>
+      <p class="baseline-caveat">Follow current official advice, including any evacuation or shelter instructions. A household checklist complements emergency response; it does not replace it.</p>
+    </section>
+
     <section class="checkup-shell shell" aria-label="Household preparedness self-check">
-      <div class="checkup-context"><b>How to read your result</b><span>Each “yes” earns 2 points, “partly” earns 1, and “not yet / not sure” earns 0. READY72’s simple guide is 0–7: getting started, 8–12: building, 13–16: many basics in place. These are prototype bands—not official ratings, a measure of your risk, or a guarantee of safety. <a href="https://assets.gov.ie/static/documents/bec7e0b9/JAV16262_OEP_Preparedness_Campaign_Accessible_EN_V3.pdf" target="_blank" rel="noopener">Ireland’s Be Emergency Ready checklist ↗</a></span></div>
+      <div class="checkup-context"><b>A reflection tool, not a rating</b><span>Your answers are used to suggest practical next steps, not to assign your household a score or predict its risk. <a href="https://assets.gov.ie/static/documents/bec7e0b9/JAV16262_OEP_Preparedness_Campaign_Accessible_EN_V3.pdf" target="_blank" rel="noopener">Ireland’s Be Emergency Ready checklist ↗</a></span></div>
       <form id="readinessQuiz" class="readiness-quiz" novalidate>
         <div class="checkup-progress"><div class="checkup-progress-top"><span id="questionNumber">QUESTION 1 OF 8</span><span id="questionProgressText">0 of 8 answered</span></div><div class="checkup-progress-track"><span id="questionProgressBar"></span></div></div>
         <div id="quizQuestion" class="quiz-question" aria-live="polite"></div>
@@ -45,14 +51,20 @@
       </form>
 
       <section class="readiness-results" id="readinessResults" aria-labelledby="resultsTitle" hidden>
-        <div class="result-score-card"><div class="eyebrow dark-eyebrow">YOUR HOUSEHOLD SNAPSHOT</div><h2 id="resultsTitle" tabindex="-1">A useful starting point.</h2><div class="result-score"><b id="resultScore">0</b><span>/ 16<br>points</span></div><p id="resultSummary"></p><div class="result-score-track"><span id="resultScoreBar"></span></div></div>
-        <div class="result-next-steps"><div class="eyebrow dark-eyebrow">A FEW PRACTICAL NEXT STEPS</div><h3>Start with the gaps that matter to you.</h3><div id="recommendationList" class="recommendation-list"></div><div class="result-actions"><a class="button button-lime" href="kit.html#kits">Build your kit <span aria-hidden="true">↗</span></a><a class="result-plan-link" href="index.html#plan">Open my household plan <span aria-hidden="true">→</span></a></div><button type="button" class="retake-check" id="retakeCheck">Review my answers</button></div>
+        <div class="result-summary-card"><div class="eyebrow dark-eyebrow">YOUR HOUSEHOLD SNAPSHOT</div><h2 id="resultsTitle" tabindex="-1">A useful starting point.</h2><p id="resultSummary"></p><div class="covered-block"><h3>Already covered</h3><div id="coveredList" class="covered-list"></div></div></div>
+        <div class="result-next-steps"><div class="eyebrow dark-eyebrow">YOUR THREE PRIORITY ACTIONS</div><h3>Start with the steps that matter to you.</h3><div id="recommendationList" class="recommendation-list"></div><div class="result-actions"><a class="button button-lime" href="kit.html#kits">Build your kit <span aria-hidden="true">↗</span></a><a class="result-plan-link" href="#householdPlan">Open the full household plan <span aria-hidden="true">→</span></a></div><button type="button" class="retake-check" id="retakeCheck">Review my answers</button></div>
       </section>
       <p class="checkup-emergency-note">If you are in immediate danger, follow emergency-service instructions and call <strong>112 or 999</strong>. This self-check is for planning ahead; it is not an emergency service.</p>
+    </section>
+
+    <section class="household-plan-section shell" id="householdPlan" aria-labelledby="householdPlanTitle">
+      <div class="household-plan-heading"><div><div class="eyebrow dark-eyebrow">YOUR PRIVATE HOUSEHOLD PLAN</div><h2 id="householdPlanTitle">Keep a checklist that fits your home.</h2><p>Tick what is already in place and add useful steps over time. Progress is saved only in this browser.</p></div><div class="plan-page-actions"><button type="button" class="button button-lime" id="printHouseholdPlan">Print my plan ↗</button><button type="button" class="reset-plan" id="clearHouseholdPlan">Clear saved progress</button></div></div>
+      <div class="plan-checklist" id="planChecklist"></div>
+      <div class="plan-progress-card plan-page-progress"><div class="progress-label">YOUR CHECKLIST</div><div class="progress-number"><span id="planComplete">0</span><small> / <span id="planTotal">0</span></small></div><div class="progress-track"><span id="planBar"></span></div><p id="progressMessage">Start with one thing you already have. Some preparation is better than none.</p><small class="local-storage-note">Saved only in this browser. READY72 does not receive your checklist.</small></div>
     </section>
   </main>
 
   <footer class="footer shell"><a class="brand footer-brand" href="index.html#top"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span>READY<span class="brand-light">72</span></span></a><p>Independent information prototype. Not an emergency service or government warning authority.</p><div class="footer-links"><a href="https://www.gov.ie/en/office-of-emergency-planning/campaigns/be-emergency-ready/" target="_blank" rel="noopener">Be Emergency Ready ↗</a><a href="index.html#top">Back to READY72 ↑</a></div></footer>
-  <script src="checkup.js" defer></script>
+  <script src="nav.js" defer></script><script src="checkup.js" defer></script><script src="plan.js" defer></script>
 </body>
 </html>
